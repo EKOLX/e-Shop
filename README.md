@@ -1,3 +1,3 @@
 # e-Shop
 
-React Native application
+React Native Application
