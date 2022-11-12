@@ -1,0 +1,8 @@
+{
+    "users": [
+        { "id": 1, "username": "customer_1", "password": "c1234r", "role": "customer" },
+        { "id": 2, "username": "customer_2", "password": "c1234r", "role": "customer" },
+        { "id": 3, "username": "admin_1", "password": "a1234n", "role": "admin" },
+        { "id": 4, "username": "admin_2", "password": "a1234n", "role": "admin" }
+    ]
+}
