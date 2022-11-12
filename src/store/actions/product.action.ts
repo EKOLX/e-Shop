@@ -17,6 +17,5 @@ export const loadAll = () =>
 
             dispatch({ type: 'PRODUCT_LOAD_ALL', products });
         } catch (error) {
-            console.error('getAll', error);
         }
     };

@@ -15,6 +15,7 @@ import { useDataLoad } from "../hooks/useDataLoad";
 import AuthScreen from "../screens/auth.screen";
 import ProductScreen from "../screens/product.screen";
 import CartScreen from "../screens/cart.screen";
+import HeaderCartButton from "../components/HeaderCartButton";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -45,7 +46,14 @@ export default function Navigation() {
             </DrawerContentScrollView>
           )}
         >
-          <Drawer.Screen name="Home" component={ProductScreen} />
+          <Drawer.Screen
+            name="Products"
+            component={ProductScreen}
+            options={{
+              headerTintColor: "black",
+              headerRight: (props) => <HeaderCartButton {...props} />,
+            }}
+          />
           <Drawer.Screen name="Cart" component={CartScreen} />
         </Drawer.Navigator>
       ) : (

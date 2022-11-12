@@ -6,10 +6,12 @@ import {
   Dimensions,
   PixelRatio,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { AppState } from "../store/AppState";
+import * as cartAction from "../store/actions/cart.action";
 import Product from "../models/Product";
 
 const screen = Dimensions.get("window");
@@ -22,14 +24,18 @@ const itemSize = PixelRatio.roundToNearestPixel(
 export default function ProductScreen() {
   const products = useSelector((state: AppState) => state.product.products);
 
+  const dispatch = useDispatch();
+
   const renderProduct: ListRenderItem<Product> = ({ item: product }) => {
     return (
-      <View style={styles.item}>
-        <Text style={{ fontWeight: "600" }}>{product.name}</Text>
-        <Text>{product.sku}</Text>
-        <Text>{product.description}</Text>
-        <Text>${product.price}</Text>
-      </View>
+      <TouchableOpacity onPress={() => dispatch(cartAction.add(product))}>
+        <View style={styles.item}>
+          <Text style={{ fontWeight: "600" }}>{product.name}</Text>
+          <Text>{product.sku}</Text>
+          <Text>{product.description}</Text>
+          <Text>${product.price}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
   return (
