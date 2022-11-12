@@ -8,7 +8,7 @@ export const signInAsync = async (username: string, password: string): Promise<U
                 .find(user => user.username === username && user.password === password);
 
             if (response) {
-                const user: Partial<User> = response as User;
+                const user: Partial<User> = { ...response } as User;
                 delete user.password;
 
                 resolve(user as User);

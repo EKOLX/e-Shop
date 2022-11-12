@@ -40,8 +40,6 @@ export const signIn = (username: string, password: string) =>
 
             user ? dispatch({ type: 'AUTH_SUCCESS', user }) : dispatch({ type: 'AUTH_FAILED', errorMessage: 'username or password is invalid' });
         } catch (error) {
-            console.error('signIn =>', error);
-
             dispatch({ type: 'AUTH_FAILED', errorMessage: 'username or password is invalid' });
         }
     };
