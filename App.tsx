@@ -1,20 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+
+import Navigation from "./src/navigation";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider>
       <StatusBar style="auto" />
-      <Text>e-Shop app</Text>
-    </View>
+      <Navigation />
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
