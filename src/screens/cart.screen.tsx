@@ -1,15 +1,25 @@
 import { useLayoutEffect, useState } from "react";
-import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import {
+  Alert,
+  FlatList,
+  ListRenderItem,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { AppState } from "../store/AppState";
+import * as cartAction from "../store/actions/cart.action";
 import { sumPricesOfCart } from "../utils";
 import { CustomerDrawerScreenProps } from "../models/types/navigation";
 import Cart from "../models/data/Cart";
-import Input from "../components/UI/Input";
-import CartHeaderButton from "../components/navigation/CartHeaderButton";
+import CartHeaderButton from "../components/Navigation/CartHeaderButton";
+import ActivityIndicatorView from "../components/UI/ActivityIndicatorView";
+import Form from "../components/ScreenSections/Cart/Form";
 
 export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
+  const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +27,8 @@ export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
   const carts = useSelector((state: AppState) => state.cart.carts);
 
   const { navigation } = props;
+
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,8 +38,24 @@ export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
     });
   }, [firstName, lastName, email]);
 
-  const checkout = () => {
-    console.log("checkout", firstName, lastName, email);
+  const checkout = async () => {
+    setLoading(true);
+    await dispatch(cartAction.checkout({ firstName, lastName, email }));
+    clearInputs();
+    setLoading(false);
+
+    Alert.alert("Congratulations!", "Your order has been completed.", [
+      {
+        text: "Done",
+        onPress: () => navigation.navigate("Products"),
+      },
+    ]);
+  };
+
+  const clearInputs = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
   };
 
   const renderProduct: ListRenderItem<Cart> = ({ item }) => {
@@ -42,39 +70,23 @@ export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.form}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Checkout the cart</Text>
-          <Text style={styles.headerText}>
-            ${sumPricesOfCart(carts).toFixed(2)}
-          </Text>
-        </View>
-
-        <Input
-          style={styles.input}
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <Input
-          style={styles.input}
-          placeholder="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        <Input
-          style={styles.input}
-          placeholder="Email Address"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
+      <Form
+        priceSum={sumPricesOfCart(carts)}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        onFirstNameChange={setFirstName}
+        onLastNameChange={setLastName}
+        onEmailChange={setEmail}
+      />
 
       <FlatList
         data={carts}
         renderItem={renderProduct}
         keyExtractor={(item) => item.product.id.toString()}
       />
+
+      <ActivityIndicatorView visible={loading} />
     </View>
   );
 }
@@ -83,20 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
-  form: {
-    marginBottom: 22,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  headerText: {
-    fontSize: 22,
-    marginBottom: 6,
-  },
-  input: {
-    marginBottom: 6,
   },
   item: {
     flexDirection: "row",
