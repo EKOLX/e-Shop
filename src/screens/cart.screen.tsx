@@ -14,7 +14,7 @@ import * as cartAction from "../store/actions/cart.action";
 import { sumPricesOfCart } from "../utils";
 import { CustomerDrawerScreenProps } from "../models/types/navigation";
 import Cart from "../models/data/Cart";
-import CartHeaderButton from "../components/Navigation/CartHeaderButton";
+import CartHeaderButton from "../components/nNavigation/CartHeaderButton";
 import ActivityIndicatorView from "../components/UI/ActivityIndicatorView";
 import Form from "../components/ScreenSections/Cart/Form";
 
