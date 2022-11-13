@@ -3,14 +3,14 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as authAction from "../store/actions/auth.action";
 import { AppState } from "../store/AppState";
+import * as authAction from "../store/actions/auth.action";
+import Input from "../components/UI/Input";
 
 export default function AuthScreen() {
   const [username, setUsername] = useState("");
@@ -32,13 +32,13 @@ export default function AuthScreen() {
         <Text style={styles.headerText}>Welcome</Text>
 
         <View style={styles.inputsSection}>
-          <TextInput
+          <Input
             style={styles.input}
             placeholder="username"
             value={username}
             onChangeText={setUsername}
           />
-          <TextInput
+          <Input
             style={styles.input}
             placeholder="password"
             secureTextEntry
@@ -77,11 +77,6 @@ const styles = StyleSheet.create({
     width: "73%",
   },
   input: {
-    fontSize: 16,
-    paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    borderRadius: 6,
     marginBottom: 6,
   },
   button: {

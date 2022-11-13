@@ -8,7 +8,7 @@ import { useDataLoad } from "../hooks/useDataLoad";
 import AuthScreen from "../screens/auth.screen";
 import ProductScreen from "../screens/product.screen";
 import CartScreen from "../screens/cart.screen";
-import HeaderCartButton from "../components/navigation/HeaderCartButton";
+import ProductHeaderButton from "../components/navigation/ProductHeaderButton";
 import CustomDrawerContent from "../components/navigation/CustomDrawerContent";
 import {
   CustomerDrawerParamList,
@@ -33,14 +33,14 @@ export default function Navigation() {
 const CustomerNavigator = () => (
   <CustomerDrawer.Navigator
     drawerContent={(props) => <CustomDrawerContent {...props} />}
+    screenOptions={{ headerTintColor: "black" }}
   >
     <CustomerDrawer.Screen
       name="Products"
       component={ProductScreen}
       options={(props: CustomerDrawerScreenProps<"Products">) => ({
-        headerTintColor: "black",
         headerRight: ({ tintColor }) => (
-          <HeaderCartButton tintColor={tintColor} {...props} />
+          <ProductHeaderButton tintColor={tintColor} {...props} />
         ),
       })}
     />
