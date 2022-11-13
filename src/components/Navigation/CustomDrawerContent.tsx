@@ -21,7 +21,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <SafeAreaView style={{ flex: 1 }}>
         <DrawerItem
           style={{ marginBottom: 22 }}
-          label={user?.username ?? ""}
+          label={user!.username}
           icon={() => <Ionicons name="person-outline" size={22} />}
           onPress={() => {}}
         />

@@ -5,10 +5,9 @@ import { useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
 import { sumQuantitiesOfCart } from "../../utils";
-import { CustomerDrawerScreenProps } from "../../models/types/navigation";
+import { RootDrawerScreenProps } from "../../models/types/navigation";
 
-interface ProductHeaderButtonProps
-  extends CustomerDrawerScreenProps<"Products"> {
+interface ProductHeaderButtonProps extends RootDrawerScreenProps<"Products"> {
   tintColor?: string;
 }
 
@@ -21,7 +20,7 @@ const ProductHeaderButton: FC<ProductHeaderButtonProps> = ({
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("Cart")}
+      onPress={() => navigation.navigate("Carts")}
     >
       <Ionicons name="cart-outline" size={29} color={tintColor} />
       <View style={styles.badge}>

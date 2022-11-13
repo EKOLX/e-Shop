@@ -6,19 +6,21 @@ import { useSelector } from "react-redux";
 import { AppState } from "../store/AppState";
 import { useDataLoad } from "../hooks/useDataLoad";
 import AuthScreen from "../screens/auth.screen";
-import AdminProductScreen from "../screens/admin/product.screen";
-import CustomerProductScreen from "../screens/customer/product.screen";
-import CartScreen from "../screens/customer/cart.screen";
+import AdminProductsScreen from "../screens/admin/products.screen";
+import AdminProductEditScreen from "../screens/admin/productEdit.screen";
+import AdminCartsScreen from "../screens/admin/carts.screen";
+import CustomerProductsScreen from "../screens/customer/products.screen";
+import CustomerCartScreen from "../screens/customer/cart.screen";
 import ProductHeaderButton from "../components/Navigation/ProductHeaderButton";
 import CustomDrawerContent from "../components/Navigation/CustomDrawerContent";
 import {
-  CustomerDrawerParamList,
-  CustomerDrawerScreenProps,
+  RootDrawerParamList,
+  RootStackParamList,
 } from "../models/types/navigation";
 import User from "../models/data/User";
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator<CustomerDrawerParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export default function Navigation() {
   const auth = useSelector((state: AppState) => state.auth);
@@ -33,30 +35,55 @@ export default function Navigation() {
 }
 
 const RootNavigator = ({ user }: { user: User }) => (
-  <Drawer.Navigator
-    drawerContent={(props) => <CustomDrawerContent {...props} />}
-    screenOptions={{ headerTintColor: "black" }}
+  <Stack.Navigator
+    screenOptions={{
+      headerTintColor: "black",
+      headerBackTitleVisible: false,
+    }}
   >
+    <Stack.Screen
+      name="Root"
+      component={DrawerNavigator}
+      options={{ headerShown: false }}
+    />
     {user.role === "admin" ? (
-      <Drawer.Group>
-        <Drawer.Screen name="Products" component={AdminProductScreen} />
-      </Drawer.Group>
-    ) : (
-      <Drawer.Group>
-        <Drawer.Screen
-          name="Products"
-          component={CustomerProductScreen}
-          options={(props: CustomerDrawerScreenProps<"Products">) => ({
-            headerRight: ({ tintColor }) => (
-              <ProductHeaderButton tintColor={tintColor} {...props} />
-            ),
-          })}
-        />
-        <Drawer.Screen name="Cart" component={CartScreen} />
-      </Drawer.Group>
-    )}
-  </Drawer.Navigator>
+      <Stack.Screen name="ProductDetails" component={AdminProductEditScreen} />
+    ) : undefined}
+  </Stack.Navigator>
 );
+
+const DrawerNavigator = () => {
+  const auth = useSelector((state: AppState) => state.auth);
+
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{ headerTintColor: "black" }}
+    >
+      {auth.user?.role === "admin" ? (
+        <Drawer.Group>
+          <Drawer.Screen name="Products" component={AdminProductsScreen} />
+          <Drawer.Screen name="Carts" component={AdminCartsScreen} />
+        </Drawer.Group>
+      ) : (
+        <Drawer.Group>
+          <Drawer.Screen
+            name="Products"
+            component={CustomerProductsScreen}
+            options={(props) => ({
+              headerRight: () => <ProductHeaderButton {...props} />,
+            })}
+          />
+          <Drawer.Screen
+            name="Carts"
+            component={CustomerCartScreen}
+            options={{ title: "Cart" }}
+          />
+        </Drawer.Group>
+      )}
+    </Drawer.Navigator>
+  );
+};
 
 const AuthNavigator = () => (
   <Stack.Navigator>

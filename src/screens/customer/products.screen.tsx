@@ -21,7 +21,7 @@ const itemSize = PixelRatio.roundToNearestPixel(
   (screen.width - screenPadding * (columnCount + 1)) / columnCount
 );
 
-export default function ProductScreen() {
+export default function ProductsScreen() {
   const products = useSelector((state: AppState) => state.product.products);
 
   const dispatch = useDispatch();

@@ -6,17 +6,25 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
 import Product from "../../models/data/Product";
+import { RootStackScreenProps } from "../../models/types/navigation";
 
-export default function ProductScreen() {
+export default function ProductsScreen() {
   const products = useSelector((state: AppState) => state.product.products);
+
+  const navigation =
+    useNavigation<RootStackScreenProps<"Root">["navigation"]>();
 
   const renderProduct: ListRenderItem<Product> = ({ item: product }) => {
     return (
-      <TouchableOpacity style={styles.item} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate("ProductDetails")}
+      >
         <Text style={{ fontWeight: "600" }}>{product.name}</Text>
         <Text>{product.sku}</Text>
         <Text>{product.description}</Text>

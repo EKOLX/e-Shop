@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   FlatList,
@@ -14,11 +14,10 @@ import * as cartAction from "../../store/actions/cart.action";
 import { sumPricesOfCart } from "../../utils";
 import { RootDrawerScreenProps } from "../../models/types/navigation";
 import Cart from "../../models/data/Cart";
-import HeaderButton from "../../components/UI/HeaderButton";
 import ActivityIndicatorView from "../../components/UI/ActivityIndicatorView";
 import Form from "../../components/ScreenSections/Cart/Form";
 
-export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
+export default function CartsScreen(props: RootDrawerScreenProps<"Carts">) {
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,20 +29,20 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
 
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight:
-        carts.length > 0
-          ? ({ tintColor }) => (
-              <HeaderButton
-                iconName="card-outline"
-                {...props}
-                onPress={checkout}
-              />
-            )
-          : undefined,
-    });
-  }, [carts, firstName, lastName, email]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight:
+  //       carts.length > 0
+  //         ? ({ tintColor }) => (
+  //             <HeaderButton
+  //               iconName="card-outline"
+  //               {...props}
+  //               onPress={checkout}
+  //             />
+  //           )
+  //         : undefined,
+  //   });
+  // }, [carts, firstName, lastName, email]);
 
   const checkout = async () => {
     setLoading(true);
@@ -54,7 +53,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
     Alert.alert("Congratulations!", "Your order has been completed.", [
       {
         text: "Done",
-        onPress: () => navigation.navigate("Products"),
+        onPress: () => {},
       },
     ]);
   };
@@ -78,7 +77,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
   if (carts.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: "center" }}>Cart is empty.</Text>
+        <Text style={{ textAlign: "center" }}>A_Cart is empty.</Text>
       </View>
     );
   }
