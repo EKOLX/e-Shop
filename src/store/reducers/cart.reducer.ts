@@ -20,10 +20,8 @@ export const cartReducer = (state: CartState = initialState, action: CartAction)
             }
 
             return { carts }
-        case 'CHECKOUT_CART':
-            return {
-                carts: []
-            }
+        case 'CLEAR_CART':
+            return { carts: [] }
         default: return state;
     }
 };

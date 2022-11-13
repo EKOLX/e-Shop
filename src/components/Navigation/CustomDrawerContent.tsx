@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { AppState } from "../../store/AppState";
 import * as authAction from "../../store/actions/auth.action";
+import * as cartAction from "../../store/actions/cart.action";
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const user = useSelector((state: AppState) => state.auth.user);
@@ -29,7 +30,10 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           style={{ marginTop: "auto" }}
           label="Sign Out"
-          onPress={() => dispatch(authAction.signOut())}
+          onPress={() => {
+            dispatch(cartAction.clear());
+            dispatch(authAction.signOut());
+          }}
         />
       </SafeAreaView>
     </DrawerContentScrollView>

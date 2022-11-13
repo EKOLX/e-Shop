@@ -10,11 +10,11 @@ interface AddAction {
     product: Product;
 }
 
-interface CheckoutAction {
-    type: 'CHECKOUT_CART';
+interface ClearAction {
+    type: 'CLEAR_CART';
 }
 
-export type CartAction = AddAction | CheckoutAction;
+export type CartAction = AddAction | ClearAction;
 
 export const add = (product: Product): CartAction => ({ type: 'ADD_TO_CART', product });
 
@@ -24,6 +24,8 @@ export const checkout = (customer: Customer) =>
             const state = getState();
             await productService.checkout(customer, state.cart.carts);
 
-            dispatch({ type: 'CHECKOUT_CART' });
+            dispatch({ type: 'CLEAR_CART' });
         } catch (error) { }
     };
+
+export const clear = (): CartAction => ({ type: 'CLEAR_CART' });

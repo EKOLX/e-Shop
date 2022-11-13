@@ -38,14 +38,19 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
               <HeaderButton
                 iconName="card-outline"
                 {...props}
-                onPress={checkout}
+                onPress={onCheckoutPress}
               />
             )
           : undefined,
     });
   }, [carts, firstName, lastName, email]);
 
-  const checkout = async () => {
+  const onCheckoutPress = async () => {
+    if (!firstName || !lastName || !email) {
+      Alert.alert("Some required information is missing.");
+      return;
+    }
+
     setLoading(true);
     await dispatch(cartAction.checkout({ firstName, lastName, email }));
     clearInputs();
