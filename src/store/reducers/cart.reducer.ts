@@ -1,5 +1,5 @@
 import { CartAction } from "../actions/cart.action";
-import Cart from "../../models/Cart";
+import Cart from "../../models/data/Cart";
 
 interface CartState {
     carts: Array<Cart>;

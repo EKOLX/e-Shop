@@ -1,4 +1,4 @@
-import Product from "../../models/Product";
+import Product from "../../models/data/Product";
 
 interface AddAction {
     type: 'ADD_TO_CART';

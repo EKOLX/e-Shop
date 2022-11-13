@@ -28,13 +28,14 @@ export default function ProductScreen() {
 
   const renderProduct: ListRenderItem<Product> = ({ item: product }) => {
     return (
-      <TouchableOpacity onPress={() => dispatch(cartAction.add(product))}>
-        <View style={styles.item}>
-          <Text style={{ fontWeight: "600" }}>{product.name}</Text>
-          <Text>{product.sku}</Text>
-          <Text>{product.description}</Text>
-          <Text>${product.price}</Text>
-        </View>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => dispatch(cartAction.add(product))}
+      >
+        <Text style={{ fontWeight: "600" }}>{product.name}</Text>
+        <Text>{product.sku}</Text>
+        <Text>{product.description}</Text>
+        <Text>${product.price}</Text>
       </TouchableOpacity>
     );
   };

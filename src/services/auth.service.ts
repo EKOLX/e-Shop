@@ -1,5 +1,5 @@
 import db from '../database/db.json';
-import User from '../models/User';
+import User from '../models/data/User';
 
 export const signInAsync = async (username: string, password: string): Promise<User> =>
     await new Promise((resolve, reject) =>

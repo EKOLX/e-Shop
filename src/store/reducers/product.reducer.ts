@@ -1,5 +1,5 @@
 import { ProductAction } from "../actions/product.action";
-import Product from "../../models/Product";
+import Product from "../../models/data/Product";
 
 interface ProductState {
     products: Array<Product>;

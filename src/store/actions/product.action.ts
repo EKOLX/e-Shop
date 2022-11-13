@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import Product from "../../models/Product";
+import Product from "../../models/data/Product";
 
 import * as productService from '../../services/product.service';
 

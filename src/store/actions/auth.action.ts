@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Dispatch } from "redux";
 
 import * as authService from '../../services/auth.service';
-import User from '../../models/User';
+import User from '../../models/data/User';
 
 interface InProgressAction {
     type: 'AUTH_IN_PROGRESS';

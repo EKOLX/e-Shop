@@ -1,26 +1,33 @@
 import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
-import { AppState } from "../store/AppState";
+import { AppState } from "../../store/AppState";
+import { CustomerDrawerScreenProps } from "../../models/types/navigation";
 
-interface HeaderCartButtonProps {
+interface HeaderCartButtonProps extends CustomerDrawerScreenProps<"Products"> {
   tintColor?: string;
 }
 
-const HeaderCartButton: FC<HeaderCartButtonProps> = ({ tintColor }) => {
+const HeaderCartButton: FC<HeaderCartButtonProps> = ({
+  tintColor,
+  navigation,
+}) => {
   const carts = useSelector((state: AppState) =>
     state.cart.carts.reduce((acc, curr) => acc + curr.quantity, 0)
   );
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate("Cart")}
+    >
       <Ionicons name="cart-outline" size={29} color={tintColor} />
       <View style={styles.badge}>
         <Text style={{ color: "white", fontSize: 13 }}>{carts}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
