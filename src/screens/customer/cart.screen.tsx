@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AppState } from "../store/AppState";
-import * as cartAction from "../store/actions/cart.action";
-import { sumPricesOfCart } from "../utils";
-import { CustomerDrawerScreenProps } from "../models/types/navigation";
-import Cart from "../models/data/Cart";
-import CartHeaderButton from "../components/Navigation/CartHeaderButton";
-import ActivityIndicatorView from "../components/UI/ActivityIndicatorView";
-import Form from "../components/ScreenSections/Cart/Form";
+import { AppState } from "../../store/AppState";
+import * as cartAction from "../../store/actions/cart.action";
+import { sumPricesOfCart } from "../../utils";
+import { CustomerDrawerScreenProps } from "../../models/types/navigation";
+import Cart from "../../models/data/Cart";
+import CartHeaderButton from "../../components/Navigation/CartHeaderButton";
+import ActivityIndicatorView from "../../components/UI/ActivityIndicatorView";
+import Form from "../../components/ScreenSections/Cart/Form";
 
 export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
   const [loading, setLoading] = useState(false);
@@ -32,11 +32,18 @@ export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: ({ tintColor }) => (
-        <CartHeaderButton tintColor={tintColor} {...props} onPress={checkout} />
-      ),
+      headerRight:
+        carts.length > 0
+          ? ({ tintColor }) => (
+              <CartHeaderButton
+                tintColor={tintColor}
+                {...props}
+                onPress={checkout}
+              />
+            )
+          : undefined,
     });
-  }, [firstName, lastName, email]);
+  }, [carts, firstName, lastName, email]);
 
   const checkout = async () => {
     setLoading(true);
@@ -67,6 +74,14 @@ export default function CartScreen(props: CustomerDrawerScreenProps<"Cart">) {
       </View>
     );
   };
+
+  if (carts.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: "center" }}>Cart is empty.</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

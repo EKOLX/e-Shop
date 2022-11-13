@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AppState } from "../store/AppState";
-import * as cartAction from "../store/actions/cart.action";
-import Product from "../models/data/Product";
+import { AppState } from "../../store/AppState";
+import * as cartAction from "../../store/actions/cart.action";
+import Product from "../../models/data/Product";
 
 const screen = Dimensions.get("window");
 const screenPadding = 16;
