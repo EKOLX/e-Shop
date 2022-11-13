@@ -8,8 +8,8 @@ import { useDataLoad } from "../hooks/useDataLoad";
 import AuthScreen from "../screens/auth.screen";
 import ProductScreen from "../screens/product.screen";
 import CartScreen from "../screens/cart.screen";
-import ProductHeaderButton from "../components/nNavigation/ProductHeaderButton";
-import CustomDrawerContent from "../components/nNavigation/CustomDrawerContent";
+import ProductHeaderButton from "../components/Navigation/ProductHeaderButton";
+import CustomDrawerContent from "../components/Navigation/CustomDrawerContent";
 import {
   CustomerDrawerParamList,
   CustomerDrawerScreenProps,
