@@ -1,20 +1,13 @@
 import { useLayoutEffect, useState } from "react";
-import {
-  Alert,
-  FlatList,
-  ListRenderItem,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
 import * as cartAction from "../../store/actions/cart.action";
 import { sumCartTotalPrice } from "../../utils";
 import { RootDrawerScreenProps } from "../../models/types/navigation";
-import CartItem from "../../models/data/CartItem";
-import Form from "../../components/ScreenSections/Cart/Form";
+import Form from "../../components/Screens/Cart/Form";
+import CartList from "../../components/Common/CartList";
 import HeaderButton from "../../components/UI/HeaderButton";
 import ActivityIndicatorView from "../../components/UI/ActivityIndicatorView";
 
@@ -66,16 +59,6 @@ export default function CartScreen({
     setEmail("");
   };
 
-  const renderProduct: ListRenderItem<CartItem> = ({ item }) => {
-    return (
-      <View style={styles.item}>
-        <Text>{item.product.name}</Text>
-        <Text>${item.product.price}</Text>
-        <Text>{item.quantity} qty.</Text>
-      </View>
-    );
-  };
-
   if (carts.length === 0) {
     return (
       <View style={styles.container}>
@@ -96,11 +79,7 @@ export default function CartScreen({
         onEmailChange={setEmail}
       />
 
-      <FlatList
-        data={carts}
-        renderItem={renderProduct}
-        keyExtractor={(item) => item.product.id.toString()}
-      />
+      <CartList data={carts} />
 
       <ActivityIndicatorView visible={loading} />
     </View>
@@ -111,13 +90,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
-  item: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 6,
-    borderWidth: 1,
-    borderRadius: 6,
-    marginBottom: 6,
   },
 });

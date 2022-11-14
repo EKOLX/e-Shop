@@ -1,10 +1,13 @@
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+import CartItem from "../data/CartItem";
+
 export type RootStackParamList = {
     Auth: undefined;
     Root: undefined;
-    ProductDetails: undefined;
+    ProductEdit: undefined;
+    CartDetails: { items: Array<CartItem> };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

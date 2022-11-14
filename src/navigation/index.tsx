@@ -9,6 +9,7 @@ import AuthScreen from "../screens/auth.screen";
 import AdminProductsScreen from "../screens/admin/products.screen";
 import AdminProductEditScreen from "../screens/admin/productEdit.screen";
 import AdminCartsScreen from "../screens/admin/carts.screen";
+import AdminCartDetailsScreen from "../screens/admin/cartDetails.screen";
 import CustomerProductsScreen from "../screens/customer/products.screen";
 import CustomerCartScreen from "../screens/customer/cart.screen";
 import ProductHeaderButton from "../components/Navigation/ProductHeaderButton";
@@ -47,7 +48,14 @@ const RootNavigator = ({ user }: { user: User }) => (
       options={{ headerShown: false }}
     />
     {user.role === "admin" ? (
-      <Stack.Screen name="ProductDetails" component={AdminProductEditScreen} />
+      <Stack.Group>
+        <Stack.Screen name="ProductEdit" component={AdminProductEditScreen} />
+        <Stack.Screen
+          name="CartDetails"
+          component={AdminCartDetailsScreen}
+          options={{ title: "Cart Details" }}
+        />
+      </Stack.Group>
     ) : undefined}
   </Stack.Navigator>
 );

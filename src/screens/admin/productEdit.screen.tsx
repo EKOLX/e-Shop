@@ -4,7 +4,7 @@ import { RootStackScreenProps } from "../../models/types/navigation";
 
 export default function ProductEditScreen({
   navigation,
-}: RootStackScreenProps<"ProductDetails">) {
+}: RootStackScreenProps<"ProductEdit">) {
   return (
     <View>
       <Text>ProductEditScreen</Text>

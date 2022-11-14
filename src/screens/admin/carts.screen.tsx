@@ -6,22 +6,32 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
 import { sumCartTotalPrice } from "../../utils";
+import { RootStackScreenProps } from "../../models/types/navigation";
 import Order from "../../models/data/Order";
 
 export default function CartsScreen() {
   const orders = useSelector((state: AppState) => state.order.orders);
 
+  const navigation =
+    useNavigation<RootStackScreenProps<"Root">["navigation"]>();
+
   const renderOrder: ListRenderItem<Order> = ({ item: order }) => {
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() =>
+          navigation.navigate("CartDetails", { items: order.items })
+        }
+      >
         <Text>{order.customer.firstName}</Text>
         <Text>{order.customer.lastName}</Text>
         <Text>{order.customer.email}</Text>
-        <Text>${sumCartTotalPrice(order.items)}</Text>
+        <Text>${sumCartTotalPrice(order.items).toFixed(2)}</Text>
       </TouchableOpacity>
     );
   };
