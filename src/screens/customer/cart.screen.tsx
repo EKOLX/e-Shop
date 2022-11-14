@@ -34,7 +34,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
     navigation.setOptions({
       headerRight:
         carts.length > 0
-          ? ({ tintColor }) => (
+          ? () => (
               <HeaderButton
                 iconName="card-outline"
                 {...props}

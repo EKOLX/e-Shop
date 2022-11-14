@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../store/AppState";
-import { useDataLoad } from "../hooks/useDataLoad";
+import { useStoreLoad } from "../hooks/useStoreLoad";
 import AuthScreen from "../screens/auth.screen";
 import AdminProductsScreen from "../screens/admin/products.screen";
 import AdminProductEditScreen from "../screens/admin/productEdit.screen";
@@ -25,7 +25,7 @@ const Drawer = createDrawerNavigator<RootDrawerParamList>();
 export default function Navigation() {
   const auth = useSelector((state: AppState) => state.auth);
 
-  useDataLoad();
+  useStoreLoad();
 
   return (
     <NavigationContainer>

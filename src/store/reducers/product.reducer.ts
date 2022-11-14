@@ -10,9 +10,7 @@ const initialState: ProductState = { products: [] };
 export const productReducer = (state: ProductState = initialState, action: ProductAction): ProductState => {
     switch (action.type) {
         case 'PRODUCT_LOAD_ALL':
-            return {
-                products: action.products
-            }
+            return { products: action.products }
         default: return state;
     }
 };

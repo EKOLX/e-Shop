@@ -1,4 +1,4 @@
-import db from '../database/db.json';
+import db from '../database/db';
 import User from '../models/data/User';
 
 export const signInAsync = async (username: string, password: string): Promise<User> =>

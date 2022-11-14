@@ -30,7 +30,7 @@ export default function ProductsScreen() {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => dispatch(cartAction.add(product))}
+        onPress={() => dispatch(cartAction.addToCart(product))}
       >
         <Text style={{ fontWeight: "600" }}>{product.name}</Text>
         <Text>{product.sku}</Text>

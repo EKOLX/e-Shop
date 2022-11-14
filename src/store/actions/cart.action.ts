@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
 
-import * as productService from '../../services/product.service';
+import { AppState } from "../AppState";
+import * as cartService from '../../services/cart.service';
 import Product from "../../models/data/Product";
 import Customer from "../../models/data/Customer";
-import { AppState } from "../AppState";
 
 interface AddAction {
     type: 'ADD_TO_CART';
@@ -16,14 +16,13 @@ interface ClearAction {
 
 export type CartAction = AddAction | ClearAction;
 
-export const add = (product: Product): CartAction => ({ type: 'ADD_TO_CART', product });
+export const addToCart = (product: Product): CartAction => ({ type: 'ADD_TO_CART', product });
 
 export const checkout = (customer: Customer) =>
     async (dispatch: Dispatch<CartAction>, getState: () => AppState) => {
         try {
             const state = getState();
-            await productService.checkout(customer, state.cart.carts);
-
+            await cartService.checkout(customer, state.cart.carts);
             dispatch({ type: 'CLEAR_CART' });
         } catch (error) { }
     };

@@ -45,6 +45,7 @@ const Form: FC<FormProps> = ({
         style={styles.input}
         placeholder="Email Address"
         value={email}
+        autoCapitalize="none"
         onChangeText={onEmailChange}
       />
     </View>

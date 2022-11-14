@@ -35,6 +35,7 @@ export default function AuthScreen() {
           <Input
             style={styles.input}
             placeholder="username"
+            autoCapitalize="none"
             value={username}
             onChangeText={setUsername}
           />
