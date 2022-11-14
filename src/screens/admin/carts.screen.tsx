@@ -1,35 +1,28 @@
-import { useState } from "react";
 import {
-  Alert,
   FlatList,
   ListRenderItem,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
-import * as cartAction from "../../store/actions/cart.action";
-import { sumPricesOfCart } from "../../utils";
-import { RootDrawerScreenProps } from "../../models/types/navigation";
+import { sumCartTotalPrice } from "../../utils";
 import Order from "../../models/data/Order";
-import Cart from "../../models/data/Cart";
-import ActivityIndicatorView from "../../components/UI/ActivityIndicatorView";
-import Form from "../../components/ScreenSections/Cart/Form";
 
-export default function CartsScreen(props: RootDrawerScreenProps<"Carts">) {
-  const [loading, setLoading] = useState(false);
-
+export default function CartsScreen() {
   const orders = useSelector((state: AppState) => state.order.orders);
 
-  const renderOrder: ListRenderItem<Order> = ({ item }) => {
+  const renderOrder: ListRenderItem<Order> = ({ item: order }) => {
     return (
-      <View style={styles.item}>
-        <Text>{item.customer.firstName}</Text>
-        <Text>{item.customer.lastName}</Text>
-        <Text>{item.carts.length} items</Text>
-      </View>
+      <TouchableOpacity style={styles.item}>
+        <Text>{order.customer.firstName}</Text>
+        <Text>{order.customer.lastName}</Text>
+        <Text>{order.customer.email}</Text>
+        <Text>${sumCartTotalPrice(order.items)}</Text>
+      </TouchableOpacity>
     );
   };
 
@@ -48,8 +41,6 @@ export default function CartsScreen(props: RootDrawerScreenProps<"Carts">) {
         renderItem={renderOrder}
         keyExtractor={(item) => item.id.toString()}
       />
-
-      <ActivityIndicatorView visible={loading} />
     </View>
   );
 }

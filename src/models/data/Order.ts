@@ -1,8 +1,8 @@
-import Cart from "./Cart";
+import CartItem from "./CartItem";
 import Customer from "./Customer";
 
 export default interface Order {
     id: number;
     customer: Customer;
-    carts: Array<Cart>;
+    items: Array<CartItem>;
 }

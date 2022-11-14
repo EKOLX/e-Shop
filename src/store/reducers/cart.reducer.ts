@@ -1,27 +1,27 @@
 import { CartAction } from "../actions/cart.action";
-import Cart from "../../models/data/Cart";
+import CartItem from "../../models/data/CartItem";
 
 interface CartState {
-    carts: Array<Cart>;
+    items: Array<CartItem>;
 }
 
-const initialState: CartState = { carts: [] };
+const initialState: CartState = { items: [] };
 
 export const cartReducer = (state: CartState = initialState, action: CartAction): CartState => {
     switch (action.type) {
         case 'ADD_TO_CART':
-            const carts: Array<Cart> = JSON.parse(JSON.stringify(state.carts));
+            const items: Array<CartItem> = JSON.parse(JSON.stringify(state.items));
 
-            const productInCart = carts.find(cart => cart.product.id === action.product.id);
-            if (productInCart) {
-                productInCart.quantity += 1;
+            const cartItem = items.find(item => item.product.id === action.product.id);
+            if (cartItem) {
+                cartItem.quantity += 1;
             } else {
-                carts.push({ product: action.product, quantity: 1 });
+                items.push({ product: action.product, quantity: 1 });
             }
 
-            return { carts }
+            return { items };
         case 'CLEAR_CART':
-            return { carts: [] }
+            return { items: [] }
         default: return state;
     }
 };

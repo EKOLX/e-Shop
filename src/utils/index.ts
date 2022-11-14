@@ -1,9 +1,9 @@
-import Cart from "../models/data/Cart";
+import CartItem from "../models/data/CartItem";
 
-export const sumQuantitiesOfCart = (carts: Array<Cart>) => {
-    return carts.reduce((acc, curr) => acc + curr.quantity, 0);
+export const sumCartTotalQuantity = (cartItems: Array<CartItem>) => {
+    return cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
 };
 
-export const sumPricesOfCart = (carts: Array<Cart>) => {
-    return carts.reduce((acc, curr) => acc + curr.product.price, 0);
+export const sumCartTotalPrice = (cartItems: Array<CartItem>) => {
+    return cartItems.reduce((acc, curr) => acc + (curr.product.price * curr.quantity), 0);
 };

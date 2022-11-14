@@ -11,22 +11,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
 import * as cartAction from "../../store/actions/cart.action";
-import { sumPricesOfCart } from "../../utils";
+import { sumCartTotalPrice } from "../../utils";
 import { RootDrawerScreenProps } from "../../models/types/navigation";
-import Cart from "../../models/data/Cart";
+import CartItem from "../../models/data/CartItem";
+import Form from "../../components/ScreenSections/Cart/Form";
 import HeaderButton from "../../components/UI/HeaderButton";
 import ActivityIndicatorView from "../../components/UI/ActivityIndicatorView";
-import Form from "../../components/ScreenSections/Cart/Form";
 
-export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
+export default function CartScreen({
+  navigation,
+}: RootDrawerScreenProps<"Carts">) {
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
-  const carts = useSelector((state: AppState) => state.cart.carts);
-
-  const { navigation } = props;
+  const carts = useSelector((state: AppState) => state.cart.items);
 
   const dispatch = useDispatch();
 
@@ -35,11 +35,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
       headerRight:
         carts.length > 0
           ? () => (
-              <HeaderButton
-                iconName="card-outline"
-                {...props}
-                onPress={onCheckoutPress}
-              />
+              <HeaderButton iconName="card-outline" onPress={onCheckoutPress} />
             )
           : undefined,
     });
@@ -70,7 +66,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
     setEmail("");
   };
 
-  const renderProduct: ListRenderItem<Cart> = ({ item }) => {
+  const renderProduct: ListRenderItem<CartItem> = ({ item }) => {
     return (
       <View style={styles.item}>
         <Text>{item.product.name}</Text>
@@ -91,7 +87,7 @@ export default function CartScreen(props: RootDrawerScreenProps<"Carts">) {
   return (
     <View style={styles.container}>
       <Form
-        priceSum={sumPricesOfCart(carts)}
+        priceSum={sumCartTotalPrice(carts)}
         firstName={firstName}
         lastName={lastName}
         email={email}

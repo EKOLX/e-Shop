@@ -22,7 +22,7 @@ export const checkout = (customer: Customer) =>
     async (dispatch: Dispatch<CartAction>, getState: () => AppState) => {
         try {
             const state = getState();
-            await cartService.checkout(customer, state.cart.carts);
+            await cartService.checkout(customer, state.cart.items);
             dispatch({ type: 'CLEAR_CART' });
         } catch (error) { }
     };

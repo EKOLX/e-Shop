@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../store/AppState";
-import { sumQuantitiesOfCart } from "../../utils";
+import { sumCartTotalQuantity } from "../../utils";
 import { RootDrawerScreenProps } from "../../models/types/navigation";
 
 interface ProductHeaderButtonProps extends RootDrawerScreenProps<"Products"> {
@@ -15,7 +15,7 @@ const ProductHeaderButton: FC<ProductHeaderButtonProps> = ({
   tintColor,
   navigation,
 }) => {
-  const carts = useSelector((state: AppState) => state.cart.carts);
+  const cartItems = useSelector((state: AppState) => state.cart.items);
 
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ const ProductHeaderButton: FC<ProductHeaderButtonProps> = ({
       <Ionicons name="cart-outline" size={29} color={tintColor} />
       <View style={styles.badge}>
         <Text style={{ color: "white", fontSize: 13 }}>
-          {sumQuantitiesOfCart(carts)}
+          {sumCartTotalQuantity(cartItems)}
         </Text>
       </View>
     </TouchableOpacity>
