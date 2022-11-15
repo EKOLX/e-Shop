@@ -49,7 +49,11 @@ const RootNavigator = ({ user }: { user: User }) => (
     />
     {user.role === "admin" ? (
       <Stack.Group>
-        <Stack.Screen name="ProductEdit" component={AdminProductEditScreen} />
+        <Stack.Screen
+          name="ProductEdit"
+          component={AdminProductEditScreen}
+          options={{ title: "Edit Product" }}
+        />
         <Stack.Screen
           name="CartDetails"
           component={AdminCartDetailsScreen}

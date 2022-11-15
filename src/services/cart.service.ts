@@ -1,4 +1,5 @@
 import db from '../database/db';
+import { deepClone } from '../utils';
 import CartItem from "../models/data/CartItem";
 import Customer from "../models/data/Customer";
 import Order from '../models/data/Order';
@@ -14,7 +15,7 @@ export const checkout = async (customer: Customer, carts: Array<CartItem>): Prom
     await new Promise((resolve) =>
         setTimeout(() => {
             const id = db.orders.length + 1;
-            db.orders.push({ id, customer, items: carts });
+            db.orders.push({ id, customer: deepClone(customer), items: deepClone(carts) });
             resolve(id);
         }, 2000)
     );

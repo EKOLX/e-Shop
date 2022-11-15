@@ -23,7 +23,7 @@ export default function ProductsScreen() {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => navigation.navigate("ProductEdit")}
+        onPress={() => navigation.navigate("ProductEdit", { product })}
       >
         <Text style={{ fontWeight: "600" }}>{product.name}</Text>
         <Text>{product.sku}</Text>

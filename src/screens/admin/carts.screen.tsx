@@ -24,12 +24,12 @@ export default function CartsScreen() {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() =>
-          navigation.navigate("CartDetails", { items: order.items })
-        }
+        onPress={() => navigation.navigate("CartDetails", { order })}
       >
-        <Text>{order.customer.firstName}</Text>
-        <Text>{order.customer.lastName}</Text>
+        <Text>{order.id}</Text>
+        <Text>
+          {order.customer.firstName} {order.customer.lastName}
+        </Text>
         <Text>{order.customer.email}</Text>
         <Text>${sumCartTotalPrice(order.items).toFixed(2)}</Text>
       </TouchableOpacity>
