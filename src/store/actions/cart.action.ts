@@ -21,8 +21,8 @@ export const addToCart = (product: Product): CartAction => ({ type: 'ADD_TO_CART
 export const checkout = (customer: Customer) =>
     async (dispatch: Dispatch<CartAction>, getState: () => AppState) => {
         try {
-            const state = getState();
-            await cartService.checkout(customer, state.cart.items);
+            const { cart } = getState();
+            await cartService.checkout(customer, cart.items);
             dispatch({ type: 'CLEAR_CART' });
         } catch (error) { }
     };

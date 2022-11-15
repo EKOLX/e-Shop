@@ -15,7 +15,13 @@ export const checkout = async (customer: Customer, carts: Array<CartItem>): Prom
     await new Promise((resolve) =>
         setTimeout(() => {
             const id = db.orders.length + 1;
-            db.orders.push({ id, customer: deepClone(customer), items: deepClone(carts) });
+            db.orders.push({
+                id,
+                date: new Date().toISOString(),
+                customer: deepClone(customer),
+                items: deepClone(carts)
+            });
+            // Could also store user information, and display carts grouped by user to admin.
             resolve(id);
         }, 2000)
     );
