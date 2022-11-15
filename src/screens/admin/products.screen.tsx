@@ -33,7 +33,7 @@ export default function ProductsScreen() {
     );
   };
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="adminContainer">
       <FlatList
         data={products}
         renderItem={renderProduct}

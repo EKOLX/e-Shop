@@ -36,6 +36,7 @@ export default function AuthScreen() {
             style={styles.input}
             placeholder="username"
             autoCapitalize="none"
+            testID="usernameInput"
             value={username}
             onChangeText={setUsername}
           />
@@ -43,6 +44,7 @@ export default function AuthScreen() {
             style={styles.input}
             placeholder="password"
             secureTextEntry
+            testID="passwordInput"
             value={password}
             onChangeText={setPassword}
           />
@@ -53,6 +55,7 @@ export default function AuthScreen() {
 
         <TouchableOpacity
           style={styles.button}
+          testID="authButton"
           onPress={onSignInPress}
           disabled={inProgress}
         >

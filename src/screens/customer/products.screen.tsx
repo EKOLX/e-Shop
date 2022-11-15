@@ -40,7 +40,7 @@ export default function ProductsScreen() {
     );
   };
   return (
-    <View>
+    <View testID="customerContainer">
       <FlatList
         numColumns={columnCount}
         columnWrapperStyle={{
