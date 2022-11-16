@@ -4,6 +4,8 @@ React Native application
 
 ### Installation
 
+Make sure you have installed Expo: https://docs.expo.dev/
+
 Install the dependencies and devDependencies and start the app.
 
 ```sh
