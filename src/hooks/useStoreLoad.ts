@@ -23,9 +23,8 @@ export const useStoreLoad = () => {
             if (user) {
                 await dispatch(productAction.loadAll());
                 await dispatch(orderAction.loadAll());
-
-                SplashScreen.hideAsync();
             }
+            SplashScreen.hideAsync();
         })();
     }, [user]);
 };
